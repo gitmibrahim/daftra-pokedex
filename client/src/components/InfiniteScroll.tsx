@@ -63,23 +63,32 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       
       {/* Loading indicator */}
       {isLoading && (
-        <div className="text-center py-8" data-testid="infinite-scroll-loading">
-          <LoadingSpinner size="md" className="mb-4" />
-          <p className="text-gray-600 dark:text-gray-400">Loading more Pokémon...</p>
+        <div className="text-center py-12" data-testid="infinite-scroll-loading">
+          <div className="w-12 h-12 bg-gradient-to-br from-pokemon-blue to-pokemon-red rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+            <svg viewBox="0 0 24 24" className="w-6 h-6 text-white fill-current animate-spin">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+            </svg>
+          </div>
+          <p className="text-gray-600 dark:text-gray-400 font-medium">Loading more Pokémon...</p>
+          <div className="flex justify-center space-x-1 mt-2">
+            <div className="w-2 h-2 bg-pokemon-blue rounded-full animate-bounce"></div>
+            <div className="w-2 h-2 bg-pokemon-blue rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+            <div className="w-2 h-2 bg-pokemon-blue rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+          </div>
         </div>
       )}
       
       {/* End of content message */}
       {!hasMore && !isLoading && (
-        <div className="text-center py-8">
-          <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-2xl">🐉</span>
+        <div className="text-center py-12">
+          <div className="w-20 h-20 bg-gradient-to-br from-pokemon-yellow to-pokemon-red rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <span className="text-3xl">⚡</span>
           </div>
-          <p className="text-gray-600 dark:text-gray-400 font-medium" data-testid="text-end-of-pokemon">
+          <p className="text-lg font-semibold text-gray-900 dark:text-white mb-2" data-testid="text-end-of-pokemon">
             You've caught them all!
           </p>
-          <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
-            No more Pokémon to discover
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            All 1000+ Pokémon have been discovered
           </p>
         </div>
       )}

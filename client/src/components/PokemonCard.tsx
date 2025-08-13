@@ -34,7 +34,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
   return (
     <Link href={`/pokemon/${pokemon.id}`}>
       <div 
-        className="bg-white dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group block"
+        className="bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group block border border-gray-100 dark:border-gray-700"
         data-testid={`card-pokemon-${pokemon.id}`}
       >
         <div className="p-6">

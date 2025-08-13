@@ -1,6 +1,6 @@
 # Overview
 
-This is a Pokédex application built with React, TypeScript, and Express.js that allows users to browse and view detailed information about Pokémon. The application fetches data from the PokéAPI and presents it in a modern, responsive interface with both pagination and load-more viewing modes. Users can view Pokémon in a grid layout, see detailed stats and information for individual Pokémon, and navigate between different viewing modes.
+This is a Pokédex application built with React, TypeScript, and Express.js that allows users to browse and view detailed information about Pokémon. The application fetches data from the PokéAPI and presents it in a modern, responsive interface with both pagination and infinite scroll viewing modes. Users can view Pokémon in a grid layout, see detailed stats and information for individual Pokémon, and navigate between different viewing modes. The UI features a centered design with enhanced headers, loading states, and footer controls.
 
 # User Preferences
 

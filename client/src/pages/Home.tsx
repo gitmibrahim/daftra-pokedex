@@ -18,36 +18,7 @@ const PaginationView: React.FC = () => {
 
   return (
     <>
-      <div className="mb-8">
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-          <div className="relative flex-1 max-w-md">
-            <input
-              type="text"
-              placeholder="Search Pokémon..."
-              className="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-pokemon-blue focus:border-transparent bg-white dark:bg-slate-800 text-gray-900 dark:text-white"
-              data-testid="input-search"
-            />
-            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔍</span>
-          </div>
-          
-          <div className="flex items-center space-x-4">
-            <select 
-              className="px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-pokemon-blue bg-white dark:bg-slate-800 text-gray-900 dark:text-white"
-              data-testid="select-type-filter"
-            >
-              <option>All Types</option>
-              <option>Fire</option>
-              <option>Water</option>
-              <option>Electric</option>
-              <option>Grass</option>
-            </select>
-            
-            <div className="text-gray-600 dark:text-gray-400 font-medium" data-testid="text-total-results">
-              {data?.pagination.totalCount || 0} Pokémon
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       <PokemonGrid 
         pokemon={data?.pokemon || []} 
@@ -93,37 +64,6 @@ const InfiniteScrollView: React.FC = () => {
 
   return (
     <>
-      <div className="mb-8">
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-          <div className="relative flex-1 max-w-md">
-            <input
-              type="text"
-              placeholder="Search Pokémon..."
-              className="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-pokemon-blue focus:border-transparent bg-white dark:bg-slate-800 text-gray-900 dark:text-white"
-              data-testid="input-search-infinitescroll"
-            />
-            <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔍</span>
-          </div>
-          
-          <div className="flex items-center space-x-4">
-            <select 
-              className="px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-pokemon-blue bg-white dark:bg-slate-800 text-gray-900 dark:text-white"
-              data-testid="select-type-filter-infinitescroll"
-            >
-              <option>All Types</option>
-              <option>Fire</option>
-              <option>Water</option>
-              <option>Electric</option>
-              <option>Grass</option>
-            </select>
-            
-            <div className="text-gray-600 dark:text-gray-400 font-medium" data-testid="text-loaded-count">
-              {allPokemon.length} Pokémon loaded
-            </div>
-          </div>
-        </div>
-      </div>
-
       <InfiniteScroll
         hasMore={data?.pagination.hasNext || false}
         isLoading={isLoading && currentPage > 1}
