@@ -12,14 +12,21 @@ const PaginationView: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data, isLoading, error, refetch } = usePokemon(currentPage, 'pagination');
 
+  // Scroll to top when page changes
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   if (error) {
     return <ErrorState error={error} onRetry={() => refetch()} />;
   }
 
   return (
     <>
-
-
       <PokemonGrid 
         pokemon={data?.pokemon || []} 
         isLoading={isLoading}
@@ -29,7 +36,7 @@ const PaginationView: React.FC = () => {
       {data?.pagination && !isLoading && (
         <PaginationControls
           pagination={data.pagination}
-          onPageChange={setCurrentPage}
+          onPageChange={handlePageChange}
           isLoading={isLoading}
         />
       )}
