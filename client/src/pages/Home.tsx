@@ -2,7 +2,7 @@ import React, { useState, Suspense } from 'react';
 import { Layout } from '../components/Layout';
 import { PokemonGrid } from '../components/PokemonGrid';
 import { PaginationControls } from '../components/PaginationControls';
-import { LoadMoreButton } from '../components/LoadMoreButton';
+import { InfiniteScroll } from '../components/InfiniteScroll';
 import { ErrorState } from '../components/ErrorState';
 import { usePokemon } from '../hooks/usePokemon';
 import { ViewMode, SimplePokemon } from '../types/pokemon';
@@ -66,10 +66,10 @@ const PaginationView: React.FC = () => {
   );
 };
 
-const LoadMoreView: React.FC = () => {
+const InfiniteScrollView: React.FC = () => {
   const [allPokemon, setAllPokemon] = useState<SimplePokemon[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const { data, isLoading, error, refetch } = usePokemon(currentPage, 'loadmore');
+  const { data, isLoading, error, refetch } = usePokemon(currentPage, 'infinitescroll');
 
   React.useEffect(() => {
     if (data?.pokemon) {
@@ -82,7 +82,7 @@ const LoadMoreView: React.FC = () => {
   }, [data, currentPage]);
 
   const handleLoadMore = () => {
-    if (data?.pagination.hasNext) {
+    if (data?.pagination.hasNext && !isLoading) {
       setCurrentPage(prev => prev + 1);
     }
   };
@@ -100,7 +100,7 @@ const LoadMoreView: React.FC = () => {
               type="text"
               placeholder="Search Pokémon..."
               className="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-pokemon-blue focus:border-transparent bg-white dark:bg-slate-800 text-gray-900 dark:text-white"
-              data-testid="input-search-loadmore"
+              data-testid="input-search-infinitescroll"
             />
             <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔍</span>
           </div>
@@ -108,7 +108,7 @@ const LoadMoreView: React.FC = () => {
           <div className="flex items-center space-x-4">
             <select 
               className="px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-pokemon-blue bg-white dark:bg-slate-800 text-gray-900 dark:text-white"
-              data-testid="select-type-filter-loadmore"
+              data-testid="select-type-filter-infinitescroll"
             >
               <option>All Types</option>
               <option>Fire</option>
@@ -124,23 +124,24 @@ const LoadMoreView: React.FC = () => {
         </div>
       </div>
 
-      <PokemonGrid 
-        pokemon={allPokemon} 
-        isLoading={currentPage === 1 && isLoading}
-        error={error}
-      />
-      
-      <LoadMoreButton
-        onLoadMore={handleLoadMore}
+      <InfiniteScroll
         hasMore={data?.pagination.hasNext || false}
         isLoading={isLoading && currentPage > 1}
-      />
+        onLoadMore={handleLoadMore}
+        threshold={300}
+      >
+        <PokemonGrid 
+          pokemon={allPokemon} 
+          isLoading={currentPage === 1 && isLoading}
+          error={error}
+        />
+      </InfiniteScroll>
     </>
   );
 };
 
 export default function Home() {
-  const [currentView, setCurrentView] = useState<ViewMode>('pagination');
+  const [currentView, setCurrentView] = useState<ViewMode>('infinitescroll');
 
   return (
     <Layout currentView={currentView} onViewChange={setCurrentView}>
@@ -151,7 +152,7 @@ export default function Home() {
           ))}
         </div>
       }>
-        {currentView === 'pagination' ? <PaginationView /> : <LoadMoreView />}
+        {currentView === 'pagination' ? <PaginationView /> : <InfiniteScrollView />}
       </Suspense>
     </Layout>
   );

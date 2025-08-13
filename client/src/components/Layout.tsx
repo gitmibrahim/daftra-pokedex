@@ -37,15 +37,15 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentView, onViewCha
                 Pagination
               </button>
               <button
-                onClick={() => onViewChange('loadmore')}
+                onClick={() => onViewChange('infinitescroll')}
                 className={`px-6 py-2 rounded-lg font-medium transition-colors ${
-                  currentView === 'loadmore'
+                  currentView === 'infinitescroll'
                     ? 'bg-pokemon-blue text-white'
                     : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
                 }`}
-                data-testid="button-loadmore-view"
+                data-testid="button-infinitescroll-view"
               >
-                Load More
+                Infinite Scroll
               </button>
             </nav>
             
@@ -72,15 +72,15 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentView, onViewCha
               Pagination
             </button>
             <button
-              onClick={() => onViewChange('loadmore')}
+              onClick={() => onViewChange('infinitescroll')}
               className={`flex-1 py-2 rounded-lg font-medium ${
-                currentView === 'loadmore'
+                currentView === 'infinitescroll'
                   ? 'bg-pokemon-blue text-white'
                   : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
               }`}
-              data-testid="button-mobile-loadmore"
+              data-testid="button-mobile-infinitescroll"
             >
-              Load More
+              Infinite Scroll
             </button>
           </div>
         </div>

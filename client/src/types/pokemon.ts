@@ -27,4 +27,4 @@ export interface PaginationInfo {
   hasPrevious: boolean;
 }
 
-export type ViewMode = 'pagination' | 'loadmore';
+export type ViewMode = 'pagination' | 'infinitescroll';

@@ -33,12 +33,11 @@ const getTypeColor = (type: string): string => {
 export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
   return (
     <Link href={`/pokemon/${pokemon.id}`}>
-      <a className="block">
-        <div 
-          className="bg-white dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group"
-          data-testid={`card-pokemon-${pokemon.id}`}
-        >
-          <div className="p-6">
+      <div 
+        className="bg-white dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group block"
+        data-testid={`card-pokemon-${pokemon.id}`}
+      >
+        <div className="p-6">
             <div className="text-center">
               {/* Pokemon sprite with animated background */}
               <div className="relative mx-auto w-32 h-32 mb-4">
@@ -81,7 +80,6 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
             </div>
           </div>
         </div>
-      </a>
     </Link>
   );
 };

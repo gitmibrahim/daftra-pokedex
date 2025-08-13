@@ -80,30 +80,29 @@ export const PaginationControls: React.FC<PaginationControlsProps> = ({
         </Button>
         
         {/* Page Numbers */}
-        {generatePageNumbers().map((page, index) => (
-          <React.Fragment key={index}>
-            {page === '...' ? (
-              <span className="px-2 py-2 text-gray-500" data-testid="text-pagination-ellipsis">
-                ...
-              </span>
-            ) : (
-              <Button
-                variant={currentPage === page ? "default" : "ghost"}
-                size="sm"
-                onClick={() => onPageChange(page as number)}
-                disabled={isLoading}
-                className={
-                  currentPage === page
-                    ? "px-4 py-2 bg-pokemon-blue hover:bg-blue-600 text-white"
-                    : "px-4 py-2"
-                }
-                data-testid={`button-page-${page}`}
-              >
-                {page}
-              </Button>
-            )}
-          </React.Fragment>
-        ))}
+        {generatePageNumbers().map((page, index) => 
+          page === '...' ? (
+            <span key={index} className="px-2 py-2 text-gray-500" data-testid="text-pagination-ellipsis">
+              ...
+            </span>
+          ) : (
+            <Button
+              key={index}
+              variant={currentPage === page ? "default" : "ghost"}
+              size="sm"
+              onClick={() => onPageChange(page as number)}
+              disabled={isLoading}
+              className={
+                currentPage === page
+                  ? "px-4 py-2 bg-pokemon-blue hover:bg-blue-600 text-white"
+                  : "px-4 py-2"
+              }
+              data-testid={`button-page-${page}`}
+            >
+              {page}
+            </Button>
+          )
+        )}
         
         {/* Next Button */}
         <Button
