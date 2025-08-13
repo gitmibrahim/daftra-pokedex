@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import Home from "./pages/Home";
 import PokemonDetail from "./pages/PokemonDetail";
-import NotFound from "@/pages/not-found";
+import NotFound from "./pages/not-found";
 
 function Router() {
   return (

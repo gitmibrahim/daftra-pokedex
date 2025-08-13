@@ -1,6 +1,6 @@
 # Overview
 
-This is a Pokédex application built with React, TypeScript, and Express.js that allows users to browse and view detailed information about Pokémon. The application fetches data from the PokéAPI and presents it in a modern, responsive interface with both pagination and infinite scroll viewing modes. Users can view Pokémon in a grid layout, see detailed stats and information for individual Pokémon, and navigate between different viewing modes. The UI features a centered design with enhanced headers, loading states, and footer controls.
+This is a frontend-only Pokédex application built with React, TypeScript, and Vite that allows users to browse and view detailed information about Pokémon. The application fetches data directly from the PokéAPI and presents it in a modern, responsive interface with both pagination and infinite scroll viewing modes. Users can view Pokémon in a grid layout, see detailed stats and information for individual Pokémon, and navigate between different viewing modes. The UI features a centered design with enhanced headers, loading states, footer controls, and network error handling.
 
 # User Preferences
 
@@ -15,18 +15,11 @@ Preferred communication style: Simple, everyday language.
 - **Styling**: Tailwind CSS with shadcn/ui component library for consistent, accessible UI components
 - **Build Tool**: Vite for fast development server and optimized production builds
 
-## Backend Architecture
-- **Runtime**: Node.js with Express.js web framework
-- **Language**: TypeScript throughout the entire application
-- **Development Mode**: Vite middleware integration for hot module replacement and development features
-- **Production**: Compiled to ES modules with esbuild for optimal performance
-- **Storage Interface**: Extensible storage interface with in-memory implementation (designed to be easily replaced with database storage)
-
 ## Data Management
-- **Database ORM**: Drizzle ORM configured for PostgreSQL with Neon Database serverless
-- **Schema Validation**: Zod schemas for runtime type validation and API data parsing
-- **Shared Types**: Common schemas and types shared between client and server in the `/shared` directory
-- **API Integration**: Custom service layer for PokéAPI integration with proper error handling and data transformation
+- **API Integration**: Direct integration with PokéAPI for Pokemon data fetching
+- **Type Safety**: TypeScript interfaces for PokéAPI response validation and data transformation
+- **Client-Side Data**: All data fetched and managed on the frontend with React Query for caching and state management
+- **Network Handling**: Comprehensive error handling for offline/online states and connection issues
 
 ## Component Architecture
 - **UI Components**: shadcn/ui component system providing consistent, accessible components
@@ -43,13 +36,10 @@ Preferred communication style: Simple, everyday language.
 # External Dependencies
 
 ## Third-Party APIs
-- **PokéAPI**: Primary data source for Pokémon information, sprites, stats, and type data
+- **PokéAPI**: Primary and only data source for Pokémon information, sprites, stats, and type data
   - Base URL: `https://pokeapi.co/api/v2`
   - Used for fetching Pokémon lists, individual Pokémon details, and sprites
-
-## Database Services
-- **Neon Database**: Serverless PostgreSQL database for data persistence
-- **Drizzle ORM**: Type-safe database access layer with migration support
+  - No authentication required, public API with CORS support
 
 ## UI and Styling
 - **Radix UI**: Unstyled, accessible UI primitives for complex components

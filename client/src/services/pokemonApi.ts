@@ -1,11 +1,59 @@
-import { Pokemon, PokemonListResponse, pokemonSchema, pokemonListResponseSchema } from '@shared/schema';
 import { SimplePokemon, PokemonDetail, PaginationInfo } from '../types/pokemon';
+
+// Types for PokéAPI responses
+interface PokemonApiResult {
+  name: string;
+  url: string;
+}
+
+interface PokemonApiListResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: PokemonApiResult[];
+}
+
+interface PokemonApiType {
+  slot: number;
+  type: {
+    name: string;
+    url: string;
+  };
+}
+
+interface PokemonApiStat {
+  base_stat: number;
+  effort: number;
+  stat: {
+    name: string;
+    url: string;
+  };
+}
+
+interface PokemonApiSprites {
+  front_default: string | null;
+  other?: {
+    "official-artwork"?: {
+      front_default: string | null;
+    };
+  };
+}
+
+interface PokemonApiResponse {
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
+  sprites: PokemonApiSprites;
+  types: PokemonApiType[];
+  stats: PokemonApiStat[];
+}
 
 const POKEMON_API_BASE = 'https://pokeapi.co/api/v2';
 const ITEMS_PER_PAGE = 20;
 
 export class PokemonApiService {
-  private async fetchApi<T>(url: string, schema: any): Promise<T> {
+  private async fetchApi<T>(url: string): Promise<T> {
     const response = await fetch(url);
     
     if (!response.ok) {
@@ -13,19 +61,19 @@ export class PokemonApiService {
     }
 
     const data = await response.json();
-    return schema.parse(data);
+    return data as T;
   }
 
   async getPokemonList(page: number = 1): Promise<{ pokemon: SimplePokemon[], pagination: PaginationInfo }> {
     const offset = (page - 1) * ITEMS_PER_PAGE;
     const url = `${POKEMON_API_BASE}/pokemon?limit=${ITEMS_PER_PAGE}&offset=${offset}`;
     
-    const listResponse = await this.fetchApi<PokemonListResponse>(url, pokemonListResponseSchema);
+    const listResponse = await this.fetchApi<PokemonApiListResponse>(url);
     
     // Extract pokemon IDs from URLs to get sprites
     const pokemonPromises = listResponse.results.map(async (item) => {
       const id = this.extractIdFromUrl(item.url);
-      const pokemonData = await this.fetchApi<Pokemon>(`${POKEMON_API_BASE}/pokemon/${id}`, pokemonSchema);
+      const pokemonData = await this.fetchApi<PokemonApiResponse>(`${POKEMON_API_BASE}/pokemon/${id}`);
       
       return {
         id: pokemonData.id,
@@ -52,7 +100,7 @@ export class PokemonApiService {
 
   async getPokemonDetail(id: number): Promise<PokemonDetail> {
     const url = `${POKEMON_API_BASE}/pokemon/${id}`;
-    const pokemonData = await this.fetchApi<Pokemon>(url, pokemonSchema);
+    const pokemonData = await this.fetchApi<PokemonApiResponse>(url);
     
     return {
       id: pokemonData.id,
