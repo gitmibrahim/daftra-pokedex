@@ -53,9 +53,13 @@ const InfiniteScrollView: React.FC = () => {
   }, [data, currentPage]);
 
   const handleLoadMore = () => {
-    if (data?.pagination.hasNext && !isLoading) {
+    if (data?.pagination.hasNext && !isLoading && !error) {
       setCurrentPage(prev => prev + 1);
     }
+  };
+
+  const handleRetry = () => {
+    refetch();
   };
 
   if (error && currentPage === 1) {
@@ -69,6 +73,8 @@ const InfiniteScrollView: React.FC = () => {
         isLoading={isLoading && currentPage > 1}
         onLoadMore={handleLoadMore}
         threshold={300}
+        error={currentPage > 1 ? error : null}
+        onRetry={handleRetry}
       >
         <PokemonGrid 
           pokemon={allPokemon} 
