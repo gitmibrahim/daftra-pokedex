@@ -7,10 +7,13 @@ export const SkeletonCard: React.FC = () => {
       data-testid="skeleton-card"
     >
       <div className="text-center">
-        {/* Animated gradient background for sprite */}
+        {/* Enhanced animated gradient skeleton for sprite */}
         <div className="relative mx-auto w-32 h-32 mb-4">
           <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-full animate-pulse"></div>
           <div className="absolute inset-4 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-600 dark:to-gray-500 rounded-full animate-pulse delay-75"></div>
+          <div className="absolute inset-8 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-500 dark:to-gray-400 rounded-full animate-pulse delay-150"></div>
+          {/* Center pulse effect */}
+          <div className="absolute inset-12 bg-gradient-to-br from-white to-gray-50 dark:from-gray-400 dark:to-gray-300 rounded-full animate-pulse delay-300"></div>
         </div>
         
         <div className="space-y-3">

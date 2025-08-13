@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'wouter';
 import { SimplePokemon } from '../types/pokemon';
+import { PokemonImage } from './PokemonImage';
 
 interface PokemonCardProps {
   pokemon: SimplePokemon;
@@ -39,14 +40,13 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
       >
         <div className="p-6">
             <div className="text-center">
-              {/* Pokemon sprite with animated background */}
-              <div className="relative mx-auto w-32 h-32 mb-4">
-                <div className="absolute inset-0 bg-gradient-to-br from-pokemon-blue/20 to-pokemon-red/20 rounded-full group-hover:scale-110 transition-transform duration-300"></div>
-                <img 
-                  src={pokemon.sprite || '/placeholder-pokemon.png'} 
+              {/* Pokemon sprite with animated background and loading skeleton */}
+              <div className="mb-4">
+                <PokemonImage
+                  src={pokemon.sprite || '/placeholder-pokemon.png'}
                   alt={`${pokemon.name} pokemon sprite`}
-                  className="relative z-10 w-full h-full object-contain"
-                  data-testid={`img-pokemon-sprite-${pokemon.id}`}
+                  size="medium"
+                  testId={`img-pokemon-sprite-${pokemon.id}`}
                 />
               </div>
               

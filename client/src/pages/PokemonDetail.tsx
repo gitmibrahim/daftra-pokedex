@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ErrorState } from '../components/ErrorState';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { usePokemonDetail } from '../hooks/usePokemonDetail';
+import { PokemonImage } from '../components/PokemonImage';
 
 const getTypeColor = (type: string): string => {
   const typeColors: Record<string, string> = {
@@ -105,14 +106,13 @@ const PokemonDetailContent: React.FC<{ pokemonId: string }> = ({ pokemonId }) =>
         <Card className="max-w-4xl mx-auto">
           <CardContent className="p-6">
             <div className="text-center mb-8">
-              {/* Large Pokemon Image */}
-              <div className="relative mx-auto w-48 h-48 mb-6">
-                <div className="absolute inset-0 bg-gradient-to-br from-pokemon-blue/20 to-pokemon-red/20 rounded-full"></div>
-                <img 
-                  src={pokemon.largeSprite || pokemon.sprite} 
+              {/* Large Pokemon Image with loading skeleton */}
+              <div className="mb-6">
+                <PokemonImage
+                  src={pokemon.largeSprite || pokemon.sprite}
                   alt={`${pokemon.name} large sprite`}
-                  className="relative z-10 w-full h-full object-contain"
-                  data-testid="img-pokemon-detail-sprite"
+                  size="large"
+                  testId="img-pokemon-detail-sprite"
                 />
               </div>
               

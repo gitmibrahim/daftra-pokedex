@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useCallback, useState } from 'react';
-import { LoadingSpinner } from './LoadingSpinner';
+import React, { useEffect, useRef, useCallback, useState } from "react";
+import { LoadingSpinner } from "./LoadingSpinner";
 
 interface InfiniteScrollProps {
   children: React.ReactNode;
@@ -18,7 +18,7 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   isLoading,
   onLoadMore,
   threshold = 500,
-  className = '',
+  className = "",
   error,
   onRetry,
 }) => {
@@ -38,13 +38,13 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       }
     };
     const handleOffline = () => setIsOnline(false);
-    
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-    
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, [error, onRetry]);
 
@@ -56,13 +56,13 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   const handleIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       const target = entries[0];
-      
+
       // If the sentinel is visible and we're not already loading and there's more content
       if (target.isIntersecting && !isLoadingRef.current && hasMore) {
         onLoadMore();
       }
     },
-    [hasMore, onLoadMore]
+    [hasMore, onLoadMore],
   );
 
   useEffect(() => {
@@ -84,49 +84,62 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   return (
     <div className={className}>
       {children}
-      
+
       {/* Sentinel element - invisible trigger for loading more */}
       <div ref={sentinelRef} className="h-4" />
-      
+
       {/* Loading indicator */}
       {isLoading && (
-        <div className="text-center py-12" data-testid="infinite-scroll-loading">
+        <div
+          className="text-center py-12"
+          data-testid="infinite-scroll-loading"
+        >
           <div className="w-12 h-12 bg-gradient-to-br from-pokemon-blue to-pokemon-red rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
-            <svg viewBox="0 0 24 24" className="w-6 h-6 text-white fill-current animate-spin">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-            </svg>
+            <span className="text-xl animate-spin">⚡</span>
           </div>
-          <p className="text-gray-600 dark:text-gray-400 font-medium">Loading more Pokémon...</p>
+          <p className="text-gray-600 dark:text-gray-400 font-medium">
+            Loading more Pokémon...
+          </p>
           <div className="flex justify-center space-x-1 mt-2">
             <div className="w-2 h-2 bg-pokemon-blue rounded-full animate-bounce"></div>
-            <div className="w-2 h-2 bg-pokemon-blue rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-            <div className="w-2 h-2 bg-pokemon-blue rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+            <div
+              className="w-2 h-2 bg-pokemon-blue rounded-full animate-bounce"
+              style={{ animationDelay: "0.1s" }}
+            ></div>
+            <div
+              className="w-2 h-2 bg-pokemon-blue rounded-full animate-bounce"
+              style={{ animationDelay: "0.2s" }}
+            ></div>
           </div>
         </div>
       )}
-      
+
       {/* Error state for loading more */}
       {error && !isLoading && (
         <div className="text-center py-12">
-          <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
-            !isOnline 
-              ? 'bg-red-100 dark:bg-red-900/20' 
-              : 'bg-orange-100 dark:bg-orange-900/20'
-          }`}>
-            <span className="text-2xl">{!isOnline ? '📵' : '⚠️'}</span>
+          <div
+            className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
+              !isOnline
+                ? "bg-red-100 dark:bg-red-900/20"
+                : "bg-orange-100 dark:bg-orange-900/20"
+            }`}
+          >
+            <span className="text-2xl">{!isOnline ? "📵" : "⚠️"}</span>
           </div>
-          <p className={`text-lg font-semibold mb-2 ${
-            !isOnline 
-              ? 'text-red-600 dark:text-red-400' 
-              : 'text-orange-600 dark:text-orange-400'
-          }`} data-testid="text-infinite-scroll-error">
-            {!isOnline ? 'You are offline' : 'Connection Error'}
+          <p
+            className={`text-lg font-semibold mb-2 ${
+              !isOnline
+                ? "text-red-600 dark:text-red-400"
+                : "text-orange-600 dark:text-orange-400"
+            }`}
+            data-testid="text-infinite-scroll-error"
+          >
+            {!isOnline ? "You are offline" : "Connection Error"}
           </p>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-            {!isOnline 
-              ? 'Please check your internet connection to load more Pokémon.'
-              : 'Unable to load more Pokémon. This might be a temporary issue.'
-            }
+            {!isOnline
+              ? "Please check your internet connection to load more Pokémon."
+              : "Unable to load more Pokémon. This might be a temporary issue."}
           </p>
           {onRetry && (
             <button
@@ -134,40 +147,49 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
               disabled={!isOnline}
               className={`px-6 py-2 rounded-lg font-medium transition-colors duration-200 ${
                 !isOnline
-                  ? 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
-                  : 'bg-pokemon-blue hover:bg-blue-600 text-white'
+                  ? "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                  : "bg-pokemon-blue hover:bg-blue-600 text-white"
               }`}
               data-testid="button-retry-infinite-scroll"
             >
-              {!isOnline ? 'Waiting for connection...' : 'Try Again'}
+              {!isOnline ? "Waiting for connection..." : "Try Again"}
             </button>
           )}
-          
+
           {/* Connection status indicator */}
-          <div className={`inline-flex items-center mt-4 px-3 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
-            isOnline
-              ? 'bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-400'
-              : 'bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400'
-          }`}>
-            <div className={`w-2 h-2 rounded-full mr-2 transition-all duration-300 ${
-              isOnline ? 'bg-green-500 animate-pulse' : 'bg-red-500'
-            }`}></div>
-            {isOnline ? 'Connected - Retrying...' : 'Offline'}
+          <div
+            className={`inline-flex items-center mt-4 px-3 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
+              isOnline
+                ? "bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-400"
+                : "bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400"
+            }`}
+          >
+            <div
+              className={`w-2 h-2 rounded-full mr-2 transition-all duration-300 ${
+                isOnline ? "bg-green-500 animate-pulse" : "bg-red-500"
+              }`}
+            ></div>
+            {isOnline ? "Connected - Retrying..." : "Offline"}
           </div>
         </div>
       )}
-      
-      {/* End of content message - only show when no error */}
+
+      {/* End of content message - only show when no error and isOnline*/}
       {!hasMore && !isLoading && !error && (
         <div className="text-center py-12">
           <div className="w-20 h-20 bg-gradient-to-br from-pokemon-yellow to-pokemon-red rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
             <span className="text-3xl">⚡</span>
           </div>
-          <p className="text-lg font-semibold text-gray-900 dark:text-white mb-2" data-testid="text-end-of-pokemon">
-            You've caught them all!
+          <p
+            className="text-lg font-semibold text-gray-900 dark:text-white mb-2"
+            data-testid="text-end-of-pokemon"
+          >
+            {isOnline ? "You've caught them all!" : "You are offline!"}
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            All 1000+ Pokémon have been discovered
+            {isOnline
+              ? "All 1000+ Pokémon have been discovered"
+              : "Please connect to the internet to see more."}
           </p>
         </div>
       )}
