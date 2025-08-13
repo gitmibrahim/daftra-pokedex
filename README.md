@@ -2,12 +2,6 @@
 
 This is a frontend-only Pokédex application built with React, TypeScript, and Vite that allows users to browse and view detailed information about Pokémon. The application fetches data directly from the PokéAPI and presents it in a modern, responsive interface with both pagination and infinite scroll viewing modes. Users can view Pokémon in a grid layout, see detailed stats and information for individual Pokémon, and navigate between different viewing modes. The UI features a centered design with enhanced headers, loading states, footer controls, and network error handling.
 
-# User Preferences
-
-Preferred communication style: Simple, everyday language.
-
-# System Architecture
-
 ## Frontend Architecture
 - **Framework**: React 18 with TypeScript for type safety and modern development
 - **Routing**: Wouter for lightweight client-side routing with routes for home (`/`) and Pokémon detail (`/pokemon/:id`)
